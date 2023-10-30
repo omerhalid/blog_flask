@@ -60,6 +60,20 @@
             margin-bottom: 20px;
         }
 
+        a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
         p {
             margin-bottom: 20px;
         }
@@ -73,6 +87,7 @@
         <h2>{{ blog_post.subtitle }}</h2>
         <p>{{ blog_post.body }}</p>
         {% endfor %}
+        <a href="/">Back to home</a>
     </div>
 </body>
 
