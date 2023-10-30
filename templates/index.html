@@ -1,17 +1,106 @@
-<!DOCTYPE html>
+<!-- From 100 days of code -->
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Website</title>
+    <title>My Blog</title>
 </head>
 <body>
-    <h1>test
-        number: {{ num }}
+    <h1>Welcome to my blog site
     </h1>
+    <h2>About me:</h2>
+    <p>My name is Ömer, a software engineer who is passinote about data structures and algorithms <br></p>
+    <p>Here you will find all my blog posts</p>
+    <a href = "{{ url_for('get_blog') }}"> Go To Blog </a>
     <footer>
         <p>&copy;Year: {{ year }}
             Month: {{ month }}
             Day: {{ day }}</p>
     </footer>
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <style>
+        /* Basic reset */
+        body, h1, h2, p, a {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            border-radius: 5px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome to my blog site</h1>
+        <h2>About me:</h2>
+        <p>My name is Ömer, a software engineer who is passionate about data structures and algorithms.</p>
+        <p>Here you will find all my blog posts</p>
+        <a href="{{ url_for('get_blog') }}">Go To Blog</a>
+        <footer>
+            <p>&copy; {{ year }}-{{ month }}-{{ day }}</p>
+        </footer>
+    </div>
+</body>
+
 </html>

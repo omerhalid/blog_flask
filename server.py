@@ -6,7 +6,7 @@ import requests
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def homex():
         current_year = time.localtime()[0]
         current_month = time.localtime()[1]
         current_day = time.localtime()[2]
@@ -26,14 +26,23 @@ def guess(name):
         age = age_data["age"]
         return render_template('guess.html', name = name, gender = gender, age = age)
 
-@app.route('weather/<city>')
-def weather(city):
-        weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid=3a6e6b1c9d0b8d2e3f7f7f8d6a4b9e3a"
-        weather_response = requests.get(weather_url)
-        weather_data = weather_response.json()
-        weather = weather_data["weather"]
-        return render_template('weather.html', weather = weather)
+@app.route("/blog")
+def get_blog():
+         #just to see what is being passed in
+        #blog_url = "https://api.npoint.io/c790b4d5cab58020d391" from 100 days of code
+        blog_url = "https://api.npoint.io/8946b91f17f797e529e4" # for sorting algorithms
+        response = requests.get(blog_url)
+        all_posts = response.json()
+        return render_template('blog.html', posts = all_posts)
 
-if __name__ == '__main__':
-        app.run(debug=True)
-        
+
+# @app.route('weather/<city>')
+# def weather(city):
+#         weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={}"
+#         weather_response = requests.get(weather_url)
+#         weather_data = weather_response.json()
+#         weather = weather_data["weather"]
+#         return render_template('weather.html', city = city, weather = weather)
+
+if __name__ == "__main__":
+    app.run(debug=True)
