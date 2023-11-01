@@ -42,7 +42,7 @@ def get_stock():
         all_stocks = response.json()
         return render_template('finance.html', stocks = all_stocks)
 
-
+#TO DO
 # @app.route('weather/<city>')
 # def weather(city):
 #         weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={}"
