@@ -35,6 +35,7 @@ def get_blog():
         all_posts = response.json()
         return render_template('blog.html', posts = all_posts)
 
+#TO DO
 @app.route("/blog/finance")
 def get_stock():
         stock_url = ""
