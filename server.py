@@ -50,7 +50,7 @@ def get_stock():
         all_stocks = response.json()
         return render_template('finance.html', stocks = all_stocks)
 
-#TO DO
+#TO DO: activate the api key
 @app.route('/weather', methods=['GET'])
 def weather():
         
