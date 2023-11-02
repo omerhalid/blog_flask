@@ -96,9 +96,18 @@
         <h2>About me:</h2>
         <p>My name is Ömer, a software engineer who is passionate about data structures and algorithms.</p>
         <p>Here you will find all my blog posts</p>
+        
+        <!-- Weather Form -->
+        <h2>Check the Weather:</h2>
+        <form action="{{ url_for('weather') }}" method="get">
+            <label for="city">Enter city name:</label>
+            <input type="text" id="city" name="city" required>
+            <button type="submit">Get Weather</button>
+        </form>
+
         <a href="{{ url_for('get_blog') }}">Go To Blog</a>
         <footer>
-            <p>&copy; {{ year }}-{{ month }}-{{ day }}</p>
+            <p>&copy; Omer Halit Cinar {{ year }}-{{ month }}-{{ day }}</p>
         </footer>
     </div>
 </body>

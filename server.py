@@ -1,7 +1,14 @@
-from flask import Flask, render_template 
+from flask import Flask, render_template, request
 import random
 import time
 import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+#getting the api key from the .env file
+AP = os.getenv("API_KEY")
 
 app = Flask(__name__)
 
@@ -44,13 +51,35 @@ def get_stock():
         return render_template('finance.html', stocks = all_stocks)
 
 #TO DO
-# @app.route('weather/<city>')
-# def weather(city):
-#         weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={}"
-#         weather_response = requests.get(weather_url)
-#         weather_data = weather_response.json()
-#         weather = weather_data["weather"]
-#         return render_template('weather.html', city = city, weather = weather)
+@app.route('/weather', methods=['GET'])
+def weather():
+        
+        API_KEY = os.getenv("API_KEY")
+        
+        city = request.args.get('city')  # Get the city from the form input
+        if not city:
+                return "Please provide a city name.", 400
+        
+        try:
+                weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}"
+                weather_response = requests.get(weather_url)
+                weather_data = weather_response.json()
+
+                # Convert Kelvin to Celsius
+                temperature_kelvin = weather_data["main"]["temp"]
+                temperature_celsius = temperature_kelvin - 273.15
+
+                # Parsing some data to be displayed in the weather template
+                weather = {
+                        "description": weather_data["weather"][0]["description"],
+                        "temperature": round(temperature_celsius, 2),  # Rounded to 2 decimal places
+                        "city": weather_data["name"]
+                }
+                
+                return render_template('weather.html', weather=weather)
+        except Exception as e:
+                return str(e), 500
+        
 
 if __name__ == "__main__":
     app.run(debug=True)
