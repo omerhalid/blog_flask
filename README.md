@@ -1,6 +1,6 @@
 # My Flask Blog 📝
 
-Welcome to the "My Flask Blog" repository! This project offers a straightforward blog platform powered by Flask—a micro web framework written in Python. Navigate through this documentation for insights on setting up, features, and more.
+Welcome to the "My Flask Blog" repository! This updated project not only offers a simple blog platform powered by Flask but also integrates additional features such as gender and age guessing, live weather updates, and a dedicated finance section. This documentation provides guidance on setting up, exploring the features, and more.
 
 ## Table of Contents
 
@@ -8,22 +8,26 @@ Welcome to the "My Flask Blog" repository! This project offers a straightforward
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Running the Application](#running-the-application)
+- [API Configuration](#api-configuration)
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
 
 ## Features
 
-- **Dynamic Routing**: Individual URLs for each blog post.
-- **Responsive Design**: Mobile-responsive design ensures smooth navigation across various devices.
-- **Custom Styling**: Fresh and modern aesthetic appeal through custom styles.
+- **Dynamic Routing**: Individual URLs for each blog post, along with gender and age guessing based on names.
+- **Responsive Design**: A seamless experience across various devices due to mobile-responsive design.
+- **Custom Styling**: An updated aesthetic with custom styles to keep the look fresh and modern.
+- **Weather Updates**: Live weather information by city name.
+- **Finance Section**: A new section featuring finance-related blog posts.
+- **API Integration**: Utilizing third-party APIs for gender and age prediction, and weather updates.
 
 ## Prerequisites
 
-Ensure you have the following installed on your machine:
+Make sure you have the following installed on your machine:
 
-- Python
-- pip
+- Python 3.8 or later
+- pip (Python package installer)
 
 ## Installation
 
@@ -40,7 +44,7 @@ Ensure you have the following installed on your machine:
     python -m venv venv
     ```
 
-    Activate it:
+    Then activate it:
 
     - For Windows:
         ```bash
@@ -55,28 +59,14 @@ Ensure you have the following installed on your machine:
 3. **Install Required Packages:**
 
     ```bash
-    pip install Flask
+    pip install -r requirements.txt
     ```
+
+    *Note: Instead of installing Flask alone, now you should install all the required packages from a `requirements.txt` file which should include all the dependencies.*
 
 ## Running the Application
 
-Once you've activated your virtual environment:
+After setting up the environment and installing the dependencies:
 
 ```bash
-python server.py
-Your blog should now be accessible at http://127.0.0.1:5000/.
-Contributing
-
-Contributions are more than welcome! Whether it's feature enhancements, bug fixes, or documentation improvements, your help is always appreciated. Here's how you can contribute:
-
-    Fork the repository.
-    Make your changes in a separate branch.
-    Submit a pull request.
-
-License
-
-This project is under the MIT License. Refer to the LICENSE file for more information.
-Acknowledgments
-
-    Special thanks to Flask for the robust backend support.
-    Gratitude to all community members for their valuable feedback and suggestions.
+python app.py
