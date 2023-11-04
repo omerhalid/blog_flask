@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 import random
 import time
 import requests
 import os
 from dotenv import load_dotenv
+from alpha_vantage.timeseries import TimeSeries
 
 load_dotenv()
 
@@ -42,13 +43,71 @@ def get_blog():
         all_posts = response.json()
         return render_template('blog.html', posts = all_posts)
 
+stocks = {
+        '1': 'Apple Inc. - AAPL',
+        '2': 'Microsoft Corporation - MSFT',
+        '3': 'Amazon.com, Inc. - AMZN',
+        '4': 'Facebook, Inc. - FB',
+        '5': 'Alphabet Inc. (Google) - GOOGL',
+        '6': 'Tesla, Inc. - TSLA',
+        '7': 'NVIDIA Corporation - NVDA',
+        '8': 'PayPal Holdings, Inc. - PYPL',
+        '9': 'Netflix, Inc. - NFLX',
+        '10': 'Adobe Inc. - ADBE',
+        '11': 'Intel Corporation - INTC',
+        '12': 'Cisco Systems, Inc. - CSCO',
+        '13': 'Comcast Corporation - CMCSA',
+        '14': 'PepsiCo, Inc. - PEP',
+        '15': 'Adobe Inc. - ADBE',
+        '16': 'Broadcom Inc. - AVGO',
+        '17': 'Texas Instruments Incorporated - TXN',
+        '18': 'QUALCOMM Incorporated - QCOM',
+        '19': 'Costco Wholesale Corporation - COST',
+        '20': 'Starbucks Corporation - SBUX',
+        '21': 'Amgen Inc. - AMGN',
+        '22': 'Charter Communications, Inc. - CHTR',
+        '23': 'Gilead Sciences, Inc. - GILD',
+        '24': 'Mondelez International, Inc. - MDLZ',
+        '25': 'Automatic Data Processing, Inc. - ADP'
+    }
+
+def get_company_name_by_symbol(symbol, stocks):
+    for key, value in stocks.items():
+        company_name, company_symbol = value.split(' - ')
+        if company_symbol.lower() == symbol.lower():
+            return company_name
+    return "Unknown Company"
+
 #TO DO
-@app.route("/blog/finance")
+@app.route("/finance")
 def get_stock():
-        stock_url = ""
-        response = requests.get(stock_url)
-        all_stocks = response.json()
-        return render_template('finance.html', stocks = all_stocks)
+        # stock_url = ""
+        # response = requests.get(stock_url)
+        # all_stocks = response.json()
+        return render_template('finance.html', stocks = stocks)
+
+#TO DO: get the required stock data using the api
+@app.route("/finance/<stock>")
+def get_stock_data(stock):
+        api_key = 'L29QA85ZBJFL9KIL'
+        ts = TimeSeries(key=api_key, output_format='json')
+        try:
+                #api_key = os.getenv("FINANCE_API_KEY")
+                
+                data, _ = ts.get_quote_endpoint(symbol=stock)
+                company_name = get_company_name_by_symbol(stock, stocks)
+                stock_data = {
+                "symbol": stock.upper(),
+                "price": data.get('05. price', "N/A"),
+                "open": data.get('02. open', "N/A"),
+                "high": data.get('03. high', "N/A"),
+                "low": data.get('04. low', "N/A"),
+                "volume": data.get('06. volume', "N/A"),
+                "company_name": company_name
+                }
+                return render_template('stock_details.html', stock_data=stock_data)
+        except Exception as e:
+                return jsonify({"error": str(e)}), 500      
 
 #TO DO: activate the api key
 @app.route('/weather', methods=['GET'])
