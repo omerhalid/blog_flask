@@ -2,6 +2,8 @@
 
 Welcome to the "My Flask Blog" repository! This updated project offers a dynamic and multifaceted blogging platform powered by Flask. The blog not only showcases creative writing but also integrates extra features such as gender and age guessing, live weather updates, and a robust finance section that provides stock data. Dive into this documentation to get started with setting up, navigating the new features, and contributing to the project.
 
+![image](https://github.com/omerhalid/blog_flask/assets/102431713/d11bd582-cdf9-425e-a4da-f4131e2c1aa9)
+
 ![image](https://github.com/omerhalid/blog_flask/assets/102431713/6c377b4f-7f9d-47fe-adea-63f9250171b1)
 
 ![image](https://github.com/omerhalid/blog_flask/assets/102431713/7b42ee05-3143-4155-83e0-6ad5c3303a8e)
