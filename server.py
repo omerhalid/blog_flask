@@ -5,13 +5,18 @@ import requests
 import os
 from dotenv import load_dotenv
 from alpha_vantage.timeseries import TimeSeries
-
-load_dotenv()
-
-#getting the api key from the .env file
-AP = os.getenv("API_KEY")
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from models.city import db, City
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:sananebe@localhost/blog'
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+# Create the tables in the database
+#db.create_all()
 
 @app.route('/')
 def homex():
@@ -116,6 +121,11 @@ def search_stock():
 #TO DO: activate the api key
 @app.route('/weather', methods=['GET'])
 def weather():
+        
+        city_name = request.args.get('city')  # replace with actual city name
+        city = City(name=city_name)
+        db.session.add(city)
+        db.session.commit()
         
         API_KEY = os.getenv("API_KEY")
         

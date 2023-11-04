@@ -2,13 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess</title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, h1, h2, h3, p {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        body {
+            background-color: #e9eff1;
+            padding-top: 50px;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 30px;
+            color: #333;
+        }
+
+        h2 {
+            color: #555;
+            margin: 20px 0;
+        }
+
+        h3 {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hey {{name.title()}}</h1>
-    <h2>I think you are {{gender}}</h2>
-    <h3>And maybe {{age}} years old</h3>
-    <footer>
-        <p>&copy;Year: {{ year }} Month: {{ month }} Day: {{ day }}</p>
-    </footer>
+    <div class="container">
+        <h1>Hey {{ name.title() }}</h1>
+        <h2>I think you are {{ gender }}</h2>
+        <h3>And maybe {{ age }} years old</h3>
+        <footer>
+            <p>&copy;Year: {{ year }} Month: {{ month }} Day: {{ day }}</p>
+        </footer>
+    </div>
+</body>
 </html>
