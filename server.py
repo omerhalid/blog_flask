@@ -89,11 +89,9 @@ def get_stock():
 #TO DO: get the required stock data using the api
 @app.route("/finance/<stock>")
 def get_stock_data(stock):
-        api_key = 'L29QA85ZBJFL9KIL'
+        api_key = os.getenv("ALPHAVANTAGE_API_KEY")
         ts = TimeSeries(key=api_key, output_format='json')
-        try:
-                #api_key = os.getenv("FINANCE_API_KEY")
-                
+        try:    
                 data, _ = ts.get_quote_endpoint(symbol=stock)
                 company_name = get_company_name_by_symbol(stock, stocks)
                 stock_data = {
