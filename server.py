@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 import random
 import time
 import requests
@@ -78,16 +78,11 @@ def get_company_name_by_symbol(symbol, stocks):
             return company_name
     return "Unknown Company"
 
-#TO DO
 @app.route("/finance")
 def get_stock():
-        # stock_url = ""
-        # response = requests.get(stock_url)
-        # all_stocks = response.json()
         return render_template('finance.html', stocks = stocks)
 
-#TO DO: get the required stock data using the api
-@app.route("/finance/<stock>")
+@app.route("/finance/<stock>", endpoint="get_stock_data")
 def get_stock_data(stock):
         api_key = os.getenv("ALPHAVANTAGE_API_KEY")
         ts = TimeSeries(key=api_key, output_format='json')
@@ -105,7 +100,18 @@ def get_stock_data(stock):
                 }
                 return render_template('stock_details.html', stock_data=stock_data)
         except Exception as e:
-                return jsonify({"error": str(e)}), 500      
+                return jsonify({"error": str(e)}), 500   
+        
+#search the stock
+@app.route("/finance/search", methods=["GET"])
+def search_stock():
+        stock = request.args.get('stock')
+        if stock:
+                #Redirect to the stock details page
+                return redirect(url_for('get_stock_data', stock=stock.upper())) 
+        else:
+                #Handle the case where no stock symbol is provided
+                return render_template('finance.html', error="Please provide a stock symbol")
 
 #TO DO: activate the api key
 @app.route('/weather', methods=['GET'])
