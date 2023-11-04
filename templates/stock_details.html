@@ -32,6 +32,19 @@
             padding: 10px;
             border-radius: 5px;
         }
+        a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -46,6 +59,7 @@
             <p><strong>Price:</strong> ${{ stock_data.price }}</p>
             <p><strong>Volume:</strong> {{ stock_data.volume }}</p>
         </div>
+        <a href="/finance">Back to stock menu</a>
     </div>
 </body>
 </html>
