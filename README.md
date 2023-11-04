@@ -6,6 +6,7 @@ Welcome to the "My Flask Blog" repository! This updated project offers a dynamic
 
 ![image](https://github.com/omerhalid/blog_flask/assets/102431713/7b42ee05-3143-4155-83e0-6ad5c3303a8e)
 
+![image](https://github.com/omerhalid/blog_flask/assets/102431713/d203c661-3499-4563-862b-3e474cd86d9c)
 
 ## Table of Contents
 
