@@ -1,4 +1,4 @@
 TO DO LIST:
-
-1. Use sql, find a way what to store
-2. aws?
+1. find a free hosting service
+2. find a free domain name
+3. aws?
