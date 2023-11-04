@@ -119,7 +119,7 @@ def weather():
         
         API_KEY = os.getenv("API_KEY")
         
-        city = request.args.get('city')  # Get the city from the form input
+        city = request.args.get('city')  # Get the city from the form input name
         if not city:
                 return "Please provide a city name.", 400
         
