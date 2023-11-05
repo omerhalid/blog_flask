@@ -10,6 +10,9 @@ Welcome to the "My Flask Blog" repository! This updated project offers a dynamic
 
 ![image](https://github.com/omerhalid/blog_flask/assets/102431713/d203c661-3499-4563-862b-3e474cd86d9c)
 
+![image](https://github.com/omerhalid/blog_flask/assets/102431713/80460d97-6828-49f5-8065-86f0a2dc6d87)
+
+
 ## Table of Contents
 
 - [Features](#features)
