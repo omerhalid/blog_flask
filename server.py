@@ -7,14 +7,14 @@ from dotenv import load_dotenv
 from alpha_vantage.timeseries import TimeSeries
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from models.city import db, City
+from schemas import City, Stock, db
 
 load_dotenv()
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
-db = SQLAlchemy(app)
+db.init_app(app)
 migrate = Migrate(app, db)
 
 # Create the tables in the database
@@ -112,6 +112,12 @@ def get_stock_data(stock):
 #search the stock
 @app.route("/finance/search", methods=["GET"])
 def search_stock():
+        
+        stock_name = request.args.get('stock')  # replace with actual city name
+        stock = Stock(stock=stock_name)
+        db.session.add(stock)
+        db.session.commit()
+        
         stock = request.args.get('stock')
         if stock:
                 #Redirect to the stock details page

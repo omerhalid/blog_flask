@@ -6,3 +6,5 @@ alpha_vantage
 Flask-SQLAlchemy PyMySQL
 psycopg2-binary
 Flask-Migrate
+pydantic
+```
