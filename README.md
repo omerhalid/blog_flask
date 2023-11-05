@@ -10,6 +10,36 @@ Welcome to the "My Flask Blog" repository! This updated project offers a dynamic
 
 ![image](https://github.com/omerhalid/blog_flask/assets/102431713/d203c661-3499-4563-862b-3e474cd86d9c)
 
+# Database Models
+
+The application's data storage is managed by a set of models that define the schema for the database. We're using SQLAlchemy as our ORM to interact with the database in an efficient and Pythonic way. Here's a brief overview of the models:
+
+## City Model
+
+- **Description**: Represents a city with weather-related data requirements.
+- **Fields**:
+  - `id`: A unique identifier for each city entry.
+  - `name`: The name of the city, which cannot be null.
+
+## Stock Model
+
+- **Description**: Contains information about different stocks available in the application.
+- **Fields**:
+  - `id`: Unique identifier for each stock entry.
+  - `ticker`: The ticker symbol for the stock, a unique set of characters representing a particular stock.
+
+## BuyStock Model
+
+- **Description**: Records the details of stock purchase transactions.
+- **Fields**:
+  - `id`: Unique identifier for each transaction.
+  - `stock`: The ticker symbol of the purchased stock.
+  - `price`: The price at which the stock was bought.
+  - `quantity`: The number of shares bought.
+  - `total`: The total value of the transaction (calculated as `price` * `quantity`).
+
+These models help to structure and store important data for the application, allowing for powerful querying and data manipulation capabilities through SQLAlchemy.
+
 ![image](https://github.com/omerhalid/blog_flask/assets/102431713/80460d97-6828-49f5-8065-86f0a2dc6d87)
 
 
