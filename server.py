@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from alpha_vantage.timeseries import TimeSeries
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from schemas import City, Stock, db
+from schemas import City, Stock, db, BuyStock
 
 load_dotenv()
 
@@ -113,7 +113,7 @@ def get_stock_data(stock):
 @app.route("/finance/search", methods=["GET"])
 def search_stock():
         
-        stock_name = request.args.get('stock')  # replace with actual city name
+        stock_name = request.args.get('stock')  
         stock = Stock(stock=stock_name)
         db.session.add(stock)
         db.session.commit()
@@ -125,7 +125,58 @@ def search_stock():
         else:
                 #Handle the case where no stock symbol is provided
                 return render_template('finance.html', error="Please provide a stock symbol")
+        
+#stock buy and sell endpoint
+@app.route("/finance/buy/<stock>", methods=["POST"])
+def buy_stock(stock):
+        
+        api_key = os.getenv("ALPHAVANTAGE_API_KEY")
+        ts = TimeSeries(key=api_key, output_format='json')
+        data, _ = ts.get_quote_endpoint(symbol=stock)
+        stock_data = {
+                "symbol": stock.upper(),
+                "price": data.get('05. price', "N/A"),
+                "open": data.get('02. open', "N/A"),
+                "high": data.get('03. high', "N/A"),
+                "low": data.get('04. low', "N/A"),
+                "volume": data.get('06. volume', "N/A"),
+                }
+        
+        data = request.get_json()
+        if not data:
+                return jsonify({"error": "Invalid data"}), 400
+        
+        #stock_name = data.get("stock") #we don't need this because we already have the stock name in the url
+        #stock_price = data.get("price")
+        stock_price = float(stock_data.get("price"))
+        stock_quantity = data.get("quantity")
+        
+        total_value = stock_price * stock_quantity
+        
+        stock = BuyStock(stock=stock, price=stock_price, quantity=stock_quantity, total=total_value)
+        db.session.add(stock)
+        db.session.commit()
+        
+        return jsonify({"message": "Stock bought successfully!"}), 200
+        #TO DO: fix the redirect to the buy_stock.html page
+        #return render_template('buy_stock.html', stock=stock)
 
+#get request to see all the stocks bought
+@app.route("/finance/buy", methods=["GET"])
+def get_all_stocks():
+        
+        stocks = BuyStock.query.all()
+        all_stocks = []
+        for stock in stocks:
+                stock_data = {
+                        "stock": stock.stock,
+                        "price": stock.price,
+                        "quantity": stock.quantity,
+                        "total": stock.total
+                }
+                all_stocks.append(stock_data)
+        return jsonify({"stocks": all_stocks}), 200
+        
 #TO DO: activate the api key
 @app.route('/weather', methods=['GET'])
 def weather():
