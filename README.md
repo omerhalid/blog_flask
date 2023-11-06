@@ -90,6 +90,8 @@ These models help to structure and store important data for the application, all
 - When a user submits a contact form, the information is sent via email using `smtplib`.
 - Environment variables are used to securely store email credentials.
 
+![image](https://github.com/omerhalid/blog_flask/assets/102431713/ce891468-5120-4196-97ba-1cd5d4337838)  
+
 ## How to Use
 
 ### Registering a New User
@@ -101,6 +103,8 @@ These models help to structure and store important data for the application, all
 
 - Send a `POST` request to `/contact` with a JSON payload containing `name`, `email`, and `message`.
 - The server will process the request and dispatch an email to the admin's email address configured in the environment variables.
+
+![image](https://github.com/omerhalid/blog_flask/assets/102431713/948b2612-210d-42ef-8ad5-43e97b638c7e)
 
 ## Prerequisites
 
