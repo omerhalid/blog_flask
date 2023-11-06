@@ -64,6 +64,44 @@ These models help to structure and store important data for the application, all
 - **Finance Section**: An addition of a finance section that offers real-time stock market data.
 - **API Integration**: The application now includes third-party APIs for gender and age estimation, weather forecasts, and stock market data.
 
+### User Registration
+
+- Users can now register an account with our service.
+- The registration process is secure and passwords are hashed for protection.
+- Upon successful registration, users receive a confirmation message.
+
+### User Login (Functionality to be implemented)
+
+- (Note: Add details about login once implemented, this section is reserved for future updates.)
+
+### Contact Us
+
+- A contact form is now available for users to send messages directly to the administration team.
+- The backend handles the contact form submissions and uses SMTP to send an email to the admin.
+
+## Implementation Details
+
+### Security
+
+- Passwords are securely hashed using `bcrypt` before being stored in the database.
+
+### SMTP Email Integration
+
+- When a user submits a contact form, the information is sent via email using `smtplib`.
+- Environment variables are used to securely store email credentials.
+
+## How to Use
+
+### Registering a New User
+
+- Send a `POST` request to `/register` with a JSON payload containing `username` and `password`.
+- Example: `{"username": "newuser", "password": "password123"}`
+
+### Sending a Message Through Contact Form
+
+- Send a `POST` request to `/contact` with a JSON payload containing `name`, `email`, and `message`.
+- The server will process the request and dispatch an email to the admin's email address configured in the environment variables.
+
 ## Prerequisites
 
 Before you get started, ensure you have the following installed:
