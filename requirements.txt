@@ -8,3 +8,5 @@ psycopg2-binary
 Flask-Migrate
 pydantic
 ```
+bcrypt
+#smtplib

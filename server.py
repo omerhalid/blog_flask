@@ -7,7 +7,9 @@ from dotenv import load_dotenv
 from alpha_vantage.timeseries import TimeSeries
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from schemas import City, Stock, db, BuyStock
+from schemas import City, Stock, db, BuyStock, User, Contact, ContactWhoSendEmail
+import bcrypt
+import smtplib
 
 load_dotenv()
 
@@ -27,6 +29,68 @@ def homex():
         current_day = time.localtime()[2]
         random_number = random.randint(1, 10)
         return render_template('index.html', num = random_number, year = current_year, month = current_month, day = current_day)
+
+@app.route('/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    if not data or 'username' not in data or 'password' not in data:
+        return jsonify({"error": "Missing username or password"}), 400
+
+    username = data['username']
+    password = data['password'].encode('utf-8')  # encode the password to bytes
+
+    # Check if user already exists
+    if User.query.filter_by(username=username).first() is not None:
+        return jsonify({"error": "Username already taken"}), 400
+
+    # Hash the password
+    hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+
+    # Create a new user with the hashed password
+    user = User(username=username, password=hashed_password)
+    db.session.add(user)
+    db.session.commit()
+
+    return jsonify({"message": "User registered successfully!"}), 201
+
+@app.route('/contact', methods=['POST'])
+def contact():
+        if request.method == 'POST':
+                data = request.get_json()
+                if not data:
+                        return jsonify({"error: no data"}), 400
+                
+                name = data['name']
+                email = data['email']
+                message =data['message']
+                
+                contact = Contact(name=name, email=email, message=message)
+                
+                db.session.add(contact)
+                db.session.commit()
+                
+                return jsonify({"message": message}), 201
+
+#send emal from contact form using smtp
+@app.route('/contact/send', methods=['POST'])
+def send_email():
+        data = request.get_json()
+        if not data:
+                return jsonify({"error: no data"}), 400
+        name = data['name']
+        email = data['email']
+        message =data['message']
+        email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nMessage: {message}"
+        email_message = email_message.encode('utf-8')
+        with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+                connection.starttls()
+                connection.login(user=os.getenv("EMAIL"), password=os.getenv("PASSWORD"))
+                connection.sendmail(from_addr=os.getenv("EMAIL"), to_addrs=os.getenv("EMAIL"), msg=email_message)
+        is_sent_email = True
+        contactWhoSendEmail = ContactWhoSendEmail(name=name, email=email, message=message, is_sent_email=is_sent_email)
+        db.session.add(contactWhoSendEmail)
+        db.session.commit()
+        return jsonify({"message": "Email sent successfully!", "content": message}), 201
 
 @app.route('/guess/<name>')
 def guess(name):
